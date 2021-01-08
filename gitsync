@@ -1,0 +1,18 @@
+#!/bin/bash
+
+LOCATION=$(cd `dirname $0` && pwd)
+REPOSITORY=${1:?the first argument of the command should be the URL of a git repository.}
+BRANCH=${2:-origin/master}
+DIRECTORY=${3:-external}
+
+echo "Syncing $LOCATION/$DIRECTORY from $REPOSITORY with $BRANCH"
+
+test ! -d "$LOCATION/$DIRECTORY/" && mkdir -p "$LOCATION/$DIRECTORY/"
+test -d "$LOCATION/$DIRECTORY/.git" &&  rm -rf "$LOCATION/$DIRECTORY/.git"
+cd "$LOCATION/$DIRECTORY/"
+git init && git remote add origin "$REPOSITORY"
+git -c core.askpass=true fetch --all && git reset --hard "$BRANCH"
+(git -c core.askpass=true ls-remote -q $REPOSITORY >/dev/null || rm -rf "$LOCATION/$DIRECTORY/.git")
+
+
+#https://gist.github.com/cyberang3l/6012c82266122e05db33f4cb8dcf598b
