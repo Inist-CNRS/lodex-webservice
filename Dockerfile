@@ -7,8 +7,12 @@ RUN mkdir -p /app/public && \
     npm install --production && \
 	npm cache clean --force && \
 	npm prune --production && \
-	apk del --no-cache .build-deps
-
+	apk del --no-cache .build-deps && \
+	cd ./local && \
+	npm install && \
+    npm run build && \
+	npm cache clean --force && \
+	npm prune --production 
 FROM node:12-alpine AS release
 COPY --from=build /app /app
 WORKDIR /app

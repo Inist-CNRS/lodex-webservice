@@ -1,0 +1,6 @@
+external/
+.env
+coverage/
+bench/
+examples/
+test/

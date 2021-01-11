@@ -1,0 +1,10 @@
+.env
+*.tgz
+*.swp
+*.swo
+README.html
+node_modules
+coverage/
+*.sw?
+lib
+package-lock.json

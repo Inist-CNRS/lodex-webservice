@@ -5,3 +5,4 @@ for line in sys.stdin:
     data = json.loads(line)
     data['value'] = data['value'].upper()
     sys.stdout.write(json.dumps(data))
+    sys.stdout.write('\n')
