@@ -31,7 +31,8 @@
 		"shelljs": "0.8.4"
 	},
 	"watch": {
-		"pip": "./public/requirements.txt"
+		"pip": "./public/requirements.txt",
+		"chmod": "./public/expand.py"
 	},
 	"scripts": {
 		"prestart": "node ./generate-dotenv.js",
@@ -44,7 +45,8 @@
 		"version": "npm run insertversion:readme && npm run insertversion:makefile && npm run insertversion:docker && git add README.md Makefile docker-compose.debug.yml",
 		"postversion": "git push && git push --tags",
 		"watch": "npm-watch",
-		"pip": "pip3 install -r ./public/requirements.txt"
+		"pip": "pip3 install -r ./public/requirements.txt",
+		"chmod": "chmod 755 ./public/expand.py"
 	},
 	"devDependencies": {},
 	"peerDependencies": {}

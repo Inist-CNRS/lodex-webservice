@@ -1,26 +1,23 @@
 {
 	"environnement": {
-		"EZS_TITLE": "lodex-workers",
-		"EZS_DESCRIPTION": "web services for Lodex",
+		"EZS_TITLE": "lodex-workers-python",
+		"EZS_DESCRIPTION": "Web services Python for Lodex",
 		"EZS_METRICS": true,
 		"EZS_CONCURRENCY": 4,
 		"EZS_NSHARDS": 32,
-		"EZS_CACHE": true,
+		"EZS_CACHE": false,
 		"CRON_VERBOSE": false,
 		"NODE_OPTIONS": "--max_old_space_size=1024",
-		"NODE_ENV": "production",
-		"GIT_REPOSITORY": "https://github.com/Inist-CNRS/lodex-extented",
-		"GIT_BRANCH": "v6.10.0",
-		"GIT_DIRECTORY": "public/webservices"
+		"NODE_ENV": "production"
 	},
-	"tasks": [
+	"#DISABLED# tasks": [
 		{
-            "#Disabled when": "30 * * * *",
-            "#Disabled execute": "/app/gitsync $GIT_REPOSITORY $GIT_BRANCH"
+            "when": "30 * * * *",
+            "execute": "/app/gitsync $GIT_REPOSITORY $GIT_BRANCH"
         },
 		{
-            "#Disable when": "0 0 0 31 1 *",
-            "#Disable execute": "/app/gitsyncdir $GIT_REPOSITORY $GIT_BRANCH $GIT_DIRECTORY "
+            "when": "0 0 0 31 1 *",
+            "execute": "/app/gitsyncdir $GIT_REPOSITORY $GIT_BRANCH $GIT_DIRECTORY "
         }
 	]
 }
