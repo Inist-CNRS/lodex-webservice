@@ -9,7 +9,7 @@ const run = execute => () => shell.exec(execute, {
     env,
 });
 
-const crontab = Array(tasks).filter(Boolean).filter((t) => (t.when && t.execute));
+const crontab = Array().concat(tasks).filter(Boolean).filter((t) => (t.when && t.execute));
 crontab.map(({ when, execute }) => schedule.scheduleJob(when, run(execute)));
 
 crontab.map(({ execute }) => run(execute)());
