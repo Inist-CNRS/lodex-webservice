@@ -1,6 +1,6 @@
 {
 	"name": "lodex-workers-python",
-	"version": "1.2.2",
+	"version": "1.2.3",
 	"description": "Python script for Lodex",
 	"directories": {
 		"test": "test"
@@ -40,7 +40,9 @@
 			"quiet": true,
 			"silent": true,
 			"verbose": false,
-			"ignore": [ ".DAV" ],
+			"ignore": [
+				".DAV"
+			],
 			"runOnChangeOnly": false
 		}
 	},
