@@ -2,6 +2,7 @@
 *.tgz
 *.swp
 *.swo
+*.lock
 README.html
 node_modules
 coverage/

@@ -10,6 +10,8 @@ Dockerfile
 !generate-dotenv.js*
 !gitsync*
 !gitsyncdir*
+!chmod-all
+!chmod-one
 !local/
 local/node_modules/
 !package.json

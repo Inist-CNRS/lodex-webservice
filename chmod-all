@@ -1,0 +1,6 @@
+#!/bin/sh
+DIRECTORY=${1:?the first argument of the command should be a directory.}
+(
+flock -n 9 || exit 1
+find $DIRECTORY -exec ./chmod-one {} \; 
+) 9>./chmod-all.lock
