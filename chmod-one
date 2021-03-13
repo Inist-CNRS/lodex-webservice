@@ -1,7 +1,8 @@
 #!/bin/sh
-FILE=${1:?the first argument of the command should be an file.}
-MOD=`stat -c "%a" $FILE`
-if [ "$MOD" != "755" ]; then
+TARGET=${1:?the first argument of the command should be an octal-mode.}
+FILE=${2:?the second argument of the command should be an file.}
+SOURCE=`stat -c "%a" $FILE`
+if [ "$SOURCE" != "$TARGET" ]; then
 	echo "Restore permissions for $FILE"
-    chmod 755 $FILE
+    chmod $TARGET $FILE
 fi

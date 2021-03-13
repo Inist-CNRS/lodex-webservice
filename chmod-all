@@ -1,6 +1,7 @@
 #!/bin/sh
-DIRECTORY=${1:?the first argument of the command should be a directory.}
+MODE=${1:?the first argument of the command should be an octal-mode.}
+DIRECTORY=${2:?the second argument of the command should be a directory.}
 (
 flock -n 9 || exit 1
-find $DIRECTORY -exec ./chmod-one {} \; 
+find $DIRECTORY -exec ./chmod-one $MODE {} \; 
 ) 9>./chmod-all.lock

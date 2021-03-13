@@ -36,7 +36,7 @@
 			"patterns": [
 				"public"
 			],
-			"extensions": "py,pyc,pyd,pyo,json,bin,ftz",
+			"extensions": "py,pyc,pyd,pyo,json,bin,ftz,ini",
 			"quiet": true,
 			"silent": true,
 			"verbose": false,
@@ -58,7 +58,7 @@
 		"postversion": "git push && git push --tags",
 		"watch": "npm-watch",
 		"pip": "pip3 install -r ./public/requirements.txt",
-		"mod": "./chmod-all ./public/"
+		"mod": "./chmod-all 754 ./public/"
 	},
 	"devDependencies": {},
 	"peerDependencies": {}
