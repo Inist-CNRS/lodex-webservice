@@ -10,7 +10,8 @@
 		"url": "git+https://github.com/Inist-CNRS/lodex-workers-python.git"
 	},
 	"keywords": [
-		"ezs"
+		"ezs",
+		"lodex"
 	],
 	"author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
 	"license": "MIT",
@@ -58,7 +59,7 @@
 		"postversion": "git push && git push --tags",
 		"watch": "npm-watch",
 		"pip": "pip3 install -r ./public/requirements.txt",
-		"mod": "./chmod-all 754 ./public/"
+		"mod": "./chmod-all 755 ./public/"
 	},
 	"devDependencies": {},
 	"peerDependencies": {}
