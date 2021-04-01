@@ -23,7 +23,7 @@ git init
 git remote add origin "$REPOSITORY"
 
 git config core.sparseCheckout true
-echo $SOURCE >> .git/info/sparse-checkout
+echo "$SOURCE/*" > .git/info/sparse-checkout
 
 git -c core.askpass=true fetch --all
 git reset --hard "$BRANCH"
@@ -33,4 +33,4 @@ rm -rf "$WORKDIR/.git"
 
 cp -Rf $WORKDIR/$SOURCE/* $TARGET/
 
-rm -rf "$WORKDIR"
+#rm -rf "$WORKDIR"

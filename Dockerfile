@@ -20,7 +20,13 @@ COPY config.json crontab.js generate-dotenv.js gitsync gitsyncdir chmod-all chmo
 # To be compilant with
 # - Debian/Ubuntu container (and so with ezmaster-webdav)
 # - ezmaster see https://github.com/Inist-CNRS/ezmaster
-RUN apk add --update-cache --no-cache su-exec bash git openssh build-base python3 python3-dev py3-pip libgfortran lapack-dev openblas-dev && \
+RUN apk add --update-cache --no-cache su-exec bash git openssh build-base \
+	python3 \
+	python3-dev \
+	py3-pip \
+	libgfortran \
+	lapack-dev \
+	openblas-dev && \
 	echo '{ \
       "httpPort": 31976, \
       "configPath": "/app/config.json", \
@@ -30,6 +36,6 @@ RUN apk add --update-cache --no-cache su-exec bash git openssh build-base python
     sed -i -e "s/daemon:x:2:/daemon:x:1:/" /etc/group && \
     sed -i -e "s/bin:x:1:1/bin:x:2:2/" /etc/passwd && \
     sed -i -e "s/bin:x:1:/bin:x:2:/" /etc/group && \
-	pip3 install --upgrade pip
+	pip3 install --no-cache-dir --upgrade pip
 ENTRYPOINT [ "/app/docker-entrypoint.sh" ]
 CMD [ "npm", "start" ]

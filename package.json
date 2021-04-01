@@ -50,7 +50,7 @@
 	"scripts": {
 		"prestart": "node ./generate-dotenv.js",
 		"start": "concurrently \"npm:daemon\" \"npm:crontab\"",
-		"daemon": "dotenv -- ezs --daemon ./public",
+		"daemon": "cd ./public && dotenv -- ezs --daemon ./",
 		"crontab": "dotenv -- node ./crontab.js",
 		"insertversion:readme": "sed -i \"s#\\(lodex-workers-python:\\)\\([\\.a-z0-9]\\+\\)#\\1${npm_package_version}#g\" README.md",
 		"insertversion:makefile": "sed -i \"s#\\(lodex-workers-python:\\)\\([\\.a-z0-9]\\+\\)#\\1${npm_package_version}#g\" Makefile",
@@ -58,7 +58,7 @@
 		"version": "npm run insertversion:readme && npm run insertversion:makefile && npm run insertversion:docker && git add README.md Makefile docker-compose.debug.yml",
 		"postversion": "git push && git push --tags",
 		"watch": "npm-watch",
-		"pip": "pip3 install -r ./public/requirements.txt",
+		"pip": "dotenv -- pip3 install -r ./public/requirements.txt",
 		"mod": "./chmod-all 755 ./public/"
 	},
 	"devDependencies": {},
