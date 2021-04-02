@@ -33,4 +33,4 @@ rm -rf "$WORKDIR/.git"
 
 cp -Rf $WORKDIR/$SOURCE/* $TARGET/
 
-#rm -rf "$WORKDIR"
+rm -rf "$WORKDIR"
