@@ -1,33 +1,34 @@
 FROM node:12-alpine AS build
 WORKDIR /app
 # see .dockerignore to know all copied files
-COPY . /app/
-RUN mkdir -p /app/public && \
-    apk add --no-cache --virtual .build-deps make gcc g++ python bash git openssh && \
-    npm install --production && \
-	npm cache clean --force && \
-	npm prune --production && \
-	apk del --no-cache .build-deps && \
-	cd ./local && \
+ADD local /app/local
+RUN cd /app/local && \
 	npm install && \
     npm run build && \
 	npm cache clean --force && \
 	npm prune --production
+COPY package.json /app/
+RUN apk add --no-cache --virtual .build-deps make gcc g++ python bash git openssh && \
+    npm install --production && \
+	npm cache clean --force && \
+	npm prune --production && \
+	apk del --no-cache .build-deps
 FROM node:12-alpine AS release
 COPY --from=build /app /app
-WORKDIR /app
-COPY config.json crontab.js generate-dotenv.js gitsync gitsyncdir chmod-all chmod-one docker-entrypoint.sh public /app/
-# To be compilant with
-# - Debian/Ubuntu container (and so with ezmaster-webdav)
-# - ezmaster see https://github.com/Inist-CNRS/ezmaster
 RUN apk add --update-cache --no-cache su-exec bash git openssh build-base \
 	python3 \
 	python3-dev \
 	py3-pip \
 	libgfortran \
 	lapack-dev \
-	openblas-dev && \
-	echo '{ \
+	openblas-dev
+WORKDIR /app
+COPY config.json crontab.js generate-dotenv.js gitsync gitsyncdir chmod-all chmod-one docker-entrypoint.sh /app/
+ADD public /app/public
+# To be compilant with
+# - Debian/Ubuntu container (and so with ezmaster-webdav)
+# - ezmaster see https://github.com/Inist-CNRS/ezmaster
+RUN	echo '{ \
       "httpPort": 31976, \
       "configPath": "/app/config.json", \
       "dataPath": "/app/public" \

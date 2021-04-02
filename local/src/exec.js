@@ -17,6 +17,7 @@ export default function exec(data, feed) {
             {
                 stdio: ['pipe', 'pipe', process.stderr],
                 detached: false,
+                shell: true,
             },
         );
         child.on('error', (err) => feed.stop(err));

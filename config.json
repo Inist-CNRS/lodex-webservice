@@ -6,6 +6,7 @@
 		"EZS_CONCURRENCY": 4,
 		"EZS_NSHARDS": 32,
 		"EZS_CACHE": false,
+		"EZS_VERBOSE": false,
 		"CRON_VERBOSE": false,
 		"NODE_OPTIONS": "--max_old_space_size=1024",
 		"NODE_ENV": "production",
