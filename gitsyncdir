@@ -20,13 +20,13 @@ echo "Syncing $WORKDIR from $REPOSITORY with $BRANCH"
 mkdir -p "$WORKDIR/"
 cd "$WORKDIR/"
 git init
-git remote add origin "$REPOSITORY"
+git remote add -f origin "$REPOSITORY"
 
 git config core.sparseCheckout true
 echo "$SOURCE/*" > .git/info/sparse-checkout
 
-git -c core.askpass=true fetch --all
-git reset --hard "$BRANCH"
+git pull origin "$BRANCH"
+
 rm -rf "$WORKDIR/.git"
 
 (test ! -d "$TARGET/" && mkdir -p "$TARGET/")
