@@ -20,9 +20,9 @@
 	},
 	"homepage": "https://github.com/Inist-CNRS/lodex-workers-python#readme",
 	"dependencies": {
-		"@ezs/analytics": "1.13.0",
-		"@ezs/basics": "1.11.2",
-		"@ezs/core": "1.23.5",
+		"@ezs/analytics": "1.14.0",
+		"@ezs/basics": "1.12.0",
+		"@ezs/core": "1.23.6",
 		"@ezs/local": "file:./local",
 		"@ezs/storage": "1.4.2",
 		"concurrently": "6.0.2",
