@@ -1,4 +1,4 @@
-FROM node:12-alpine AS build
+FROM node:14-alpine AS build
 WORKDIR /app
 # see .dockerignore to know all copied files
 ADD local /app/local
@@ -15,7 +15,7 @@ RUN apk add --no-cache --virtual .build-deps make gcc g++ python bash git openss
 	apk del --no-cache .build-deps
 FROM node:12-alpine AS release
 COPY --from=build /app /app
-RUN apk add --update-cache --no-cache su-exec bash git openssh build-base \
+RUN apk add --update-cache --no-cache su-exec bash git openssh build-base cmake \
 	python3 \
 	python3-dev \
 	py3-pip \
