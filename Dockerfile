@@ -19,6 +19,7 @@ RUN apk add --update-cache --no-cache su-exec bash git openssh build-base \
 	python3 \
 	python3-dev \
 	py3-pip \
+	py3-wheel \
 	libgfortran \
 	lapack-dev \
 	openssl-dev \
