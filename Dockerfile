@@ -21,6 +21,8 @@ RUN apk add --update-cache --no-cache su-exec bash git openssh build-base \
 	py3-pip \
 	libgfortran \
 	lapack-dev \
+	openssl-dev \
+	libffi-dev \
 	openblas-dev
 WORKDIR /app
 COPY config.json crontab.js generate-dotenv.js gitsync gitsyncdir chmod-all chmod-one docker-entrypoint.sh /app/
