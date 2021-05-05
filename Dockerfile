@@ -13,13 +13,18 @@ RUN apk add --no-cache --virtual .build-deps make gcc g++ python bash git openss
 	npm cache clean --force && \
 	npm prune --production && \
 	apk del --no-cache .build-deps
-FROM node:12-alpine AS release
+FROM node:14-alpine AS release
 COPY --from=build /app /app
-RUN apk add --update-cache --no-cache su-exec bash git openssh build-base cmake \
+RUN apk add --update-cache --no-cache \
+	su-exec \
+	bash \
+	git \
+	openssh \
+	build-base \
+	cmake \
 	python3 \
 	python3-dev \
 	py3-pip \
-	py3-wheel \
 	libgfortran \
 	lapack-dev \
 	openssl-dev \
