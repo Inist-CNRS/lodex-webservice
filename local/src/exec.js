@@ -17,13 +17,13 @@ export default function exec(data, feed) {
             {
                 stdio: ['pipe', 'pipe', process.stderr],
                 detached: false,
-                shell: true,
             },
         );
+        const output = child.stdout.pipe(ezs('unpack'));
         child.on('error', (err) => feed.stop(err));
+        child.on('exit', () => output.end());
         this.input = ezs.createStream(ezs.objectMode());
         this.input.pipe(ezs('pack')).pipe(child.stdin);
-        const output = child.stdout.pipe(ezs('unpack'));
         this.whenFinish = feed.flow(output);
     }
     if (this.isLast()) {
