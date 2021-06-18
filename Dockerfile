@@ -15,6 +15,7 @@ RUN apk add --no-cache --virtual .build-deps make gcc g++ python bash git openss
 	apk del --no-cache .build-deps
 
 
+
 FROM golang:1.8.3-alpine3.6 as build2
 
 # System setup
@@ -40,6 +41,7 @@ RUN cp /go/bin/protoc-gen-go /export/bin/
 # Export dependencies
 RUN cp /usr/lib/libstdc++* /export/lib/
 RUN cp /usr/lib/libgcc_s* /export/lib/
+
 
 
 FROM node:14-alpine AS release
