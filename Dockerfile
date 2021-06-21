@@ -1,4 +1,4 @@
-FROM node:14-alpine AS build
+FROM node:14-alpine AS build1
 WORKDIR /app
 # see .dockerignore to know all copied files
 ADD local /app/local
@@ -13,8 +13,40 @@ RUN apk add --no-cache --virtual .build-deps make gcc g++ python bash git openss
 	npm cache clean --force && \
 	npm prune --production && \
 	apk del --no-cache .build-deps
+
+
+
+FROM golang:1.15.13-alpine3.13 as build2
+
+# System setup
+RUN apk update && apk add git curl build-base autoconf automake libtool
+
+# Install protoc
+ENV PROTOBUF_URL https://github.com/google/protobuf/releases/download/v3.3.0/protobuf-cpp-3.3.0.tar.gz
+RUN curl -L -o /tmp/protobuf.tar.gz $PROTOBUF_URL
+WORKDIR /tmp/
+RUN tar xvzf protobuf.tar.gz
+WORKDIR /tmp/protobuf-3.3.0
+RUN mkdir /export
+RUN ./autogen.sh && \
+    ./configure --prefix=/export && \
+    make -j 3 && \
+    make check && \
+    make install
+
+# Install protoc-gen-go
+RUN go get github.com/golang/protobuf/protoc-gen-go
+RUN cp /go/bin/protoc-gen-go /export/bin/
+
+# Export dependencies
+RUN cp /usr/lib/libstdc++* /export/lib/
+RUN cp /usr/lib/libgcc_s* /export/lib/
+
+
+
 FROM node:14-alpine AS release
-COPY --from=build /app /app
+COPY --from=build1 /app /app
+COPY --from=build2 /export /usr
 RUN apk add --update-cache --no-cache \
 	su-exec \
 	bash \
@@ -30,7 +62,8 @@ RUN apk add --update-cache --no-cache \
 	openssl-dev \
 	libffi-dev \
 	ghostscript-dev \
-	openblas-dev
+	openblas-dev \
+	ca-certificates
 WORKDIR /app
 COPY config.json crontab.js generate-dotenv.js gitsync gitsyncdir chmod-all chmod-one docker-entrypoint.sh /app/
 ADD public /app/public
