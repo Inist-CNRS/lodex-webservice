@@ -16,7 +16,7 @@ RUN apk add --no-cache --virtual .build-deps make gcc g++ python bash git openss
 
 
 
-FROM golang:1.8.3-alpine3.6 as build2
+FROM golang:1.15.13-alpine3.13 as build2
 
 # System setup
 RUN apk update && apk add git curl build-base autoconf automake libtool
