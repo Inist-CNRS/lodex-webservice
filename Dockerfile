@@ -42,8 +42,6 @@ RUN cp /go/bin/protoc-gen-go /export/bin/
 RUN cp /usr/lib/libstdc++* /export/lib/
 RUN cp /usr/lib/libgcc_s* /export/lib/
 
-
-
 FROM node:14-alpine AS release
 COPY --from=build1 /app /app
 COPY --from=build2 /export /usr
@@ -63,7 +61,9 @@ RUN apk add --update-cache --no-cache \
 	libffi-dev \
 	ghostscript-dev \
 	openblas-dev \
-	ca-certificates
+	ca-certificates \
+	rust \
+	cargo
 WORKDIR /app
 COPY config.json crontab.js generate-dotenv.js gitsync gitsyncdir chmod-all chmod-one docker-entrypoint.sh /app/
 ADD public /app/public
